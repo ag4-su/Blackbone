@@ -31,6 +31,7 @@ enum eBuildThreshold
     Build_20H1 = 19041,
     Build_21H2 = 22000,
     Build_22H2 = 22621,
+    Build_23H2 = 22631,
     Build_RS_MAX = 99999,
 };
 
@@ -51,7 +52,9 @@ enum eVerShort
     Win10_19H2,     // Windows 10 November 2019 update
     Win10_20H1,     // Windows 10 April 2020 update
     Win11_21H2,     // Windows 11
-    Win11_22H2      // Windows 11 September 2022 update
+    Win11_22H2,      // Windows 11 September 2022 update
+    Win11_23H2      // Windows 11 Feb 2024 update
+
 };
 
 struct WinVersion
@@ -113,7 +116,9 @@ BLACKBONE_API inline void InitVersion()
         switch (fullver)
         {
         case _WIN32_WINNT_WIN10:
-            if (g_WinVer.native.dwBuildNumber >= Build_22H2)
+            if (g_WinVer.native.dwBuildNumber >= Build_23H2)
+                g_WinVer.ver = Win11_23H2;
+            else if (g_WinVer.native.dwBuildNumber >= Build_22H2)
                 g_WinVer.ver = Win11_22H2;
             else if (g_WinVer.native.dwBuildNumber >= Build_21H2)
                 g_WinVer.ver = Win11_21H2;

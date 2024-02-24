@@ -418,8 +418,7 @@ call_result_t<ModuleDataPtr> ProcessModules::Inject( const std::wstring& path, T
     // Write dll name into target process
     auto fillDllName = [&modName, &path]( auto& ustr )
     {
-        auto bufferPtr = modName->ptr<uint8_t*>() + sizeof(ustr);
-        ustr.Buffer = reinterpret_cast<decltype(ustr.Buffer)>(bufferPtr);
+        ustr.Buffer = modName->ptr<typename std::remove_reference<decltype(ustr)>::type::type>() + sizeof(ustr);
         ustr.MaximumLength = ustr.Length = static_cast<USHORT>(path.size() * sizeof( wchar_t ));
 
         modName->Write( 0, ustr );
